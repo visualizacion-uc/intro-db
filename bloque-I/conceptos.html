@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Intro Base de Datos</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
+  </head>
+  <body>
+    <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h1>Introducción a Base de datos <a class="btn btn-primary pull-right" href="../index.html">Volver</a></h1>
+            <hr>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-6">
+            <p>Conoceremos conceptos básicos y simplificados sobre Bases de Datos:</p>
+            <ul>
+              <li>Tipos de Bases de Datos</li>
+              <li>Bases de datos relacionales</li>
+              <li>Normalización</li>
+              <li>DBMS</li>
+            </ul>
+          
+          </div>
+          <div class="col-md-6">
+
+          </div>
+
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Tipos de bases de datos</h2>
+          </div>
+          <div class="col-md-9">
+            <ul>
+              <li><strong>Jerárquicas</strong>: Datos relacionados en forma de árbol invertido, cada nodo tiene un padre.</li>            
+              <li><strong>Red</strong>: Jerárquicas, pero con la posibilidad de tener múltiples padres.</li>
+              <li><strong>Transaccionales</strong>: Envío y recepción de datos a gran velocidad.</li>
+              <li><strong>Relacionales</strong>: Problemas reales, relaciones reales de datos dinámicos.</li>
+              <li><strong>Multidimensional</strong>: Como relacionales, pero en forma de cubo de información.</li>
+              <li><strong>Orientada a Objetos</strong>: Guarda objetos completos y los indexa, con sus datos y comportamiento.</li>
+              <li><strong>Documentales</strong>: Guardan e indexan documentos completos, utilizados para grandes consultas.</li>
+              <li><strong>Deductivas</strong>: Permite hacer deducciones a través de inferencias. Se basa principalmente en reglas y hechos.</li>
+            </ul>
+            <p>Nos concentraremos en las Bases de Datos Relacionales.</p>
+          </div>
+          <div class="col-md-3">
+            <p><img class="img-responsive" alt="" src="http://publicdomainvectors.org/photos/db.png"></p>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Bases de datos relacionales</h2>
+          </div>
+          <div class="col-md-9">
+            <h3>Introducción</h3>
+            <p>Modelo de datos basado en la lógica y en la teoría de conjuntos.</p>
+            <p>Diseño: Debemos establecer un proceso partiendo del mundo real, de manera que sea posible plasmarlo mediante una serie de datos.</p>
+            <p>La imagen que obtenemos del mundo real se denomina <strong>modelo conceptual</strong>.</p>
+            <p> La definición de este modelo se denomina <strong>esquema conceptual.</strong></p>
+            <p>Sus principales ventajas:</p>
+            <ul>
+              <li>Provee herramientas que garantizan evitar la duplicidad de registros.</li>
+              <li>Garantiza la integridad referencial, así, al eliminar un registro elimina todos los registros relacionados dependientes.</li>
+              <li>Favorece la normalización por ser más comprensible y aplicable.</li>
+            </ul>
+            <h3>Conceptos claves:</h3>
+              <p><strong>Entidades: </strong>Son objetos concretos o abstractos que presentan interés para el sistema y sobre los que se recoge información que será representada en un sistema de bases de datos. Por ejemplo, clientes, proveedores y facturas serían entidades en el entorno de una empresa.</p>
+
+              <p><strong>Atributos: </strong>Es una unidad básica e indivisible de información acerca de una entidad o una relación. Por ejemplo la entidad proveedor tendrá los atributos nombre, domicilio, RUT.</p>
+
+              <p><strong>Dominios: </strong>Es el conjunto de valores que puede tomar cada atributo. Valores posibles. Ej: Comunas</p>
+
+              <p><strong>Tablas: </strong>Es la forma de estructurar los datos en filas o registros (tupla) y columnas o atributos.</p>
+
+              <p><strong>Relación: </strong>Es la asociación que se efectúa entre entidades.Puede ser una relación simple del tipo: jugador->equipo. O más compleja del tipo frutas->vitaminas.</p>
+
+              <p><strong>Tablas relacionales: </strong>Son tablas que cumplen los siguientes requisitos:
+
+              <ul>
+                <li>Cada fila debe ser única, es decir no pueden existir filas duplicadas.</li>
+                <li>Cada columna debe ser única</li>
+                <li>Los valores de las columnas deben pertenecer al dominio de cada atributo</li>
+                <li>Debe tener un solo tipo de fila, cuyo formato está definido por el esquema de tabla o la relación.</li>
+                <li>El valor de la columna para cada fila debe ser único.</li>
+                <li>No puede contener columnas duplicadas.</li>
+              </ul>
+              <p><strong>Claves: </strong>En una tabla relacional a veces es necesario poder determinar una tupla (registro) concreta, lo cual es posible mediante la clave. Se debe elegir la clave entre los atributos, de forma que no puedan existir valores duplicados (la clave puede contener uno o más atributos). Para este caso será la clave principal de una tabla. Se puede tener solo una clave principal por tabla, pero se pueden tener N claves secundarias por tabla.</p>
+          </div>
+          <div class="col-md-3">
+            <img class="img-responsive" src="http://3.bp.blogspot.com/-cX6xN_I5NtI/Uzh5HcMoTQI/AAAAAAAASTo/tTK9TGpgZWI/s1600/database.png">
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h2>Normalización</h2>
+          </div>
+          <div class="col-md-9">
+            <p>Existe también una serie de condiciones que garantizan la integridad y eficiencia de un modelo de base de datos: las formas normales. Normalizar (aplicar las formas normales) una base de datos tiene muchas ventajas y nos ayuda, desde lo metodológico, a prevenir errores de diseño y ganar calidad, integridad y performance.</p>
+            <p>Respetar las formas normales nos garantizan que:</p>
+            <ul>
+              <li>No existan valores compuestos o que puedan ser deducidos por otro valor. Cada campo debe contener valores atómicos. Ejemplos: Nombre completo o Campo edad y campo fecha de nacimiento.</li>
+              <li>Los campos que no sean Clave Primaria puedan ser identificados unívocamente por ésta. A menos que sean claves foráneas. Ejemplo: Nombre y dni, siendo dni la clave primaria.</li>
+              <li>Se definan dependencias transitivas identificando entidades para separar y que posean una relación directa. Ejemplo: id_cliente, nombre_cliente en tabla de venta, mejorando la actualización.</li>
+            </ul>
+
+          </div>
+          <div class="col-md-3">
+            <img class="img-responsive" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/FormasNormalesBD.png/200px-FormasNormalesBD.png">
+          </div>
+        </div>
+
+    </div>
+
+    <hr/>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Pablo H. Paladino - <a href="http://twitter.com/palamago">@palamago</a></p>
+      </div>
+    </footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        hljs.initHighlightingOnLoad();
+      });
+      </script>
+  </body>
+</html>
