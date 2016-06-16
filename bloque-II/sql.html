@@ -508,29 +508,39 @@ RIGHT JOIN departamento on empleado.id_departamento = departamento.id_departamen
           </div>
           <div class="col-md-6">
             <ol id="respuestas">
-              <li><pre><code class="sql">SELECT nombre, fecha_inicio FROM proyecto</code></pre></li>
-              <li><pre><code class="sql">SELECT * FROM proyecto WHERE fecha_fin IS NOT NULL</code></pre></li>
-              <li><pre><code class="sql">SELECT AVG(sueldo) FROM empleado WHERE id_departamento = (ID)</code></pre></li>
-              <li><pre><code class="sql">SELECT id_departamento,COUNT(1) as cantidad FROM empleado GROUP BY id_departamento</code></pre></li>
-              <li><pre><code class="sql">SELECT departamento.nombre,COUNT(1) as cantidad FROM empleado
+<li><pre><code class="sql">--1
+SELECT nombre, fecha_inicio FROM proyecto</code></pre></li>
+<li><pre><code class="sql">--2
+SELECT * FROM proyecto WHERE fecha_fin IS NOT NULL</code></pre></li>
+<li><pre><code class="sql">--3
+SELECT AVG(sueldo) FROM empleado WHERE id_departamento = (ID)</code></pre></li>
+<li><pre><code class="sql">--4
+SELECT id_departamento,COUNT(1) as cantidad FROM empleado GROUP BY id_departamento</code></pre></li>
+<li><pre><code class="sql">--5
+SELECT departamento.nombre,COUNT(1) as cantidad FROM empleado
 JOIN departamento ON empleado.id_departamento = departamento.id_departamento
 GROUP BY empleado.id_departamento</code></pre></li>
-              <li><pre><code class="sql">SELECT empleado.nombre, empleado.apellido, empleado.direccion, empleado.sueldo
+<li><pre><code class="sql">--6
+SELECT empleado.nombre, empleado.apellido, empleado.direccion, empleado.sueldo
 FROM empleado
 WHERE empleado.sueldo > 2000000
 ORDER BY empleado.sueldo DESC</code></pre></li>
-              <li><pre><code class="sql">SELECT id_proyecto,count(1) as cantidad
+<li><pre><code class="sql">--7
+SELECT id_proyecto,count(1) as cantidad
 FROM empleado_proyecto
 GROUP BY id_proyecto</code></pre></li>
-              <li><pre><code class="sql">SELECT id_proyecto,count(1) as cantidad
+<li><pre><code class="sql">--8
+SELECT id_proyecto,count(1) as cantidad
 FROM empleado_proyecto
 GROUP BY id_proyecto
 HAVING count(1)>20</code></pre></li>
-              <li><pre><code class="sql">SELECT id_proyecto, SUM(empleado.sueldo) as total
+<li><pre><code class="sql">--9
+SELECT id_proyecto, SUM(empleado.sueldo) as total
 FROM empleado_proyecto
 JOIN empleado ON empleado.id_empleado = empleado_proyecto.id_empleado
 GROUP BY id_proyecto</code></pre></li>
-              <li><pre><code class="sql">SELECT proyecto.nombre, SUM(empleado.sueldo) as total
+<li><pre><code class="sql">--10
+SELECT proyecto.nombre, SUM(empleado.sueldo) as total
 FROM empleado_proyecto
 JOIN empleado ON empleado.id_empleado = empleado_proyecto.id_empleado
 JOIN proyecto ON proyecto.id_proyecto = empleado_proyecto.id_proyecto
@@ -546,7 +556,7 @@ GROUP BY empleado_proyecto.id_proyecto</code></pre></li>
 
     <footer class="footer">
       <div class="container">
-        <p class="text-muted">Pablo H. Paladino - <a href="http://twitter.com/palamago">@palamago</a><a class="pull-right" href="javascript:;" onclick="$('#respuestas').show();">#</a></p>
+        <p class="text-muted">Pablo H. Paladino - <a href="http://twitter.com/palamago">@palamago</a><a class="pull-right" href="javascript:;" onclick="$('#respuestas').show();">.</a></p>
       </div>
     </footer>
 
