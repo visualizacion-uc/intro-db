@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Intro Base de Datos</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/styles/default.min.css">
+    <style type="text/css">
+      img.full{
+        width: 100%;
+      }
+      #respuestas{
+        display: none;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <h1>Lenguaje SQL <a class="btn btn-primary pull-right" href="../index.html">Volver</a></h1>
+            <p>SQL (Structured Query Language) es el lenguaje estándar ANSI/ISO de definición, manipulación y control de bases de datos relacionales. Es un lenguaje declarativo: sólo hay que indicar qué se quiere hacer.</p>
+            <hr>
+          </div>
+        </div>
+        
+        <div class="row">
+          <div class="col-md-6">            
+            <h3>Comandos DDL - Data Definition Language</h3>
+
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td><strong>CREATE</strong></td>
+                  <td>Utilizado para crear nuevas tablas, campos e índices</td>
+                </tr>
+                <tr>
+                  <td><strong>DROP</strong></td>
+                  <td>Empleado para eliminar tablas e índices</td>
+                </tr>
+                <tr>
+                  <td><strong>ALTER</strong></td>
+                  <td>Utilizado para modificar las tablas agregando campos o cambiando la definición de los campos</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <img class="img-responsive" src="DER.png"/>
+
+          </div>
+          <div class="col-md-6">
+
+<pre><code class="sql">--Crea una base de datos
+CREATE DATABASE empresaDB;</code></pre>
+<pre><code class="sql">--Crea tabla empleados con varias columnas
+CREATE TABLE `empresaDB`.`empleado` (
+`id_empleado` INT NOT NULL,
+`apellido` VARCHAR(45),
+`nombre` VARCHAR(45),
+`telefono` INT,
+`direccion` VARCHAR(45),
+`fecha_nacimiento` DATE,
+`observaciones` VARCHAR(45),
+`sueldo` INT,
+PRIMARY KEY (`id_empleado`) );</code></pre>
+<pre><code class="sql">--Modifica empleados y le agrega un campo
+ALTER TABLE `empresaDB`.`empleado` 
+ADD COLUMN `id_departamento` INT NOT NULL;</code></pre>
+<pre><code class="sql">--Elimina la tabla empleados
+DROP TABLE `empresaDB`.`empleado`;</code></pre>
+<pre><code class="sql">--Crea tabla departamento
+CREATE TABLE `empresaDB`.`departamento` (
+`id_departamento` INT NOT NULL,
+`nombre` VARCHAR(45) NULL,
+PRIMARY KEY (`id_departamento`) );</code></pre>
+<pre><code class="sql">--Modifica empleado y le agrega un INDEX
+ALTER TABLE `empresaDB`.`empleado` 
+ADD INDEX `empleado_departamento_idx` (`id_departamento` ASC);</code></pre>
+<pre><code class="sql">--Modifica empleado y le agrega una constraint del tipo clave foránea FK
+ALTER TABLE `empresaDB`.`empleado`
+ADD CONSTRAINT `empleado_departamento`
+  FOREIGN KEY (`id_departamento`)
+  REFERENCES `empresaDB`.`departamento` (`id_departamento`)
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;</code></pre>
+
+          </div>
+        </div>
+
+        <hr/>
+
+        <div class="row">
+          <div class="col-md-6">
+            <h3>Comandos DML - Data Manipulation Language</h3>
+
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td><strong>SELECT</strong></td>
+                  <td>Utilizado para consultar registros de la base de datos que satisfagan un criterio determinado</td>
+                </tr>
+                <tr>
+                  <td><strong>INSERT</strong></td>
+                  <td>Utilizado para cargar lotes de datos en la base de datos en una única operación.</td>
+                </tr>
+                <tr>
+                  <td><strong>UPDATE</strong></td>
+                  <td>Utilizado para modificar los valores de los campos y registros especificados</td>
+                </tr>
+                <tr>
+                  <td><strong>DELETE</strong></td>
+                  <td>Utilizado para eliminar registros de una tabla de una base de datos</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6">
+
+          <pre><code class="sql">--Todas las columnas de todos los registros de empleado
+SELECT * from empleado;</code></pre>
+          <pre><code class="sql">--Nombre y apellido de todos los registros de empleado
+SELECT nombre,apellido from empleado;</code></pre>
+          <pre><code class="sql">--Inserto un nuevo departamento
+INSERT INTO `empresaDB`.`departamento` (`id_departamento`, `nombre`)
+  VALUES ('9000', 'Marketing');</code></pre>
+          <pre><code class="sql">--Inserto varios nuevos departamentos
+INSERT INTO `empresaDB`.`departamento` (`id_departamento`, `nombre`) 
+VALUES ('9001', 'Ventas')
+,('9002', 'Administración')
+,('9003', 'Reparto')
+,('9004', 'Internet');</code></pre>
+<pre><code class="sql">--Le pongo el mismo sueldo a todos los empleados
+UPDATE `empresaDB`.`empleado` SET `sueldo`=500000;</code></pre>
+<pre><code class="sql">--Borro todos los empleados
+DELETE FROM empleado;</code></pre>
+
+          </div>
+        </div>
+
+        <hr/>
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <h3>Cláusulas</h3>
+
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td><strong>FROM</strong></td>
+                  <td>Utilizada para especificar la tabla de la cual se van a seleccionar los registros</td>
+                </tr>
+                <tr>
+                  <td><strong>WHERE</strong></td>
+                  <td>Utilizada para especificar las condiciones que deben reunir los registros que se van a seleccionar</td>
+                </tr>
+                <tr>
+                  <td><strong>GROUP BY</strong></td>
+                  <td>Utilizada para separar los registros seleccionados en grupos específicos</td>
+                </tr>
+                <tr>
+                  <td><strong>HAVING</strong></td>
+                  <td>Utilizada para expresar la condición que debe satisfacer cada grupo</td>
+                </tr>
+                <tr>
+                  <td><strong>ORDER BY</strong></td>
+                  <td>Utilizada para ordenar los registros seleccionados de acuerdo con un orden específico</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+          <div class="col-md-6">
+            <pre><code class="sql">--Traer nombre y sueldo de los empledos de Internet
+SELECT nombre,apellido from empleado WHERE `id_departamento` = 9004;</code></pre>
+            <pre><code class="sql">--Aplico nuevo sueldo sólo al área de marketing
+UPDATE `empresaDB`.`empleado` SET `sueldo`=700000 WHERE `id_departamento` = 9000;</code></pre>
+            <pre><code class="sql">--Todos los departamentos, ordenados por nombre de forma ascendente
+SELECT * FROM empresaDB.departamento ORDER BY nombre ASC;</code></pre>
+          </div>
+        </div>
+        
+        <hr/>
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <h3>Operadores lógicos</h3>
+
+            <table class="table">
+              <tbody>
+              <tr>
+                <td><strong>AND</strong></td>
+                <td>Es el “y” lógico. Evalúa dos condiciones y devuelve un valor de verdad sólo si ambas son ciertas.</td>
+              </tr>
+              <tr>
+                <td><strong>OR</strong></td>
+                <td>Es el “o” lógico. Evalúa dos condiciones y devuelve un valor de verdad si alguna de las dos es cierta.</td>
+              </tr>
+              <tr>
+                <td><strong>NOT</strong></td>
+                <td>Negación lógica. Devuelve el valor contrario de la expresión.</td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+          <div class="col-md-6">
+            <pre><code class="sql">--Todos los empleados que ganen 4000 del departamento de Internet
+SELECT * FROM empresaDB.empleado
+WHERE sueldo=4000 AND id_departamento = 9000</code></pre>
+            <pre><code class="sql">--Todos los empleados que ganen 4000 y no sean del departamento de Internet
+SELECT * FROM empresaDB.empleado
+WHERE sueldo=4000 AND NOT id_departamento = 9000</code></pre>
+          </div>
+        </div>
+        
+        <hr/>
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <h3>Operadores de comparación</h3>
+
+            <table class="table">
+              <tbody>
+                <tr>
+                <td><strong>&lt;</strong></td>
+                <td>Menor que</td>
+                </tr>
+                <tr>
+                <td><strong>&gt;</strong></td>
+                <td>Mayor que</td>
+                </tr>
+                <tr>
+                <td><strong>&lt;&gt;</strong></td>
+                <td>Distinto de</td>
+                </tr>
+                <tr>
+                <td><strong>&lt;=</strong></td>
+                <td>Menor ó Igual que</td>
+                </tr>
+                <tr>
+                <td><strong>&gt;=</strong></td>
+                <td>Mayor ó Igual que</td>
+                </tr>
+                <tr>
+                <td><strong>BETWEEN</strong></td>
+                <td>Utilizado para especificar un intervalo de valores.</td>
+                </tr>
+                <tr>
+                <td><strong>LIKE</strong></td>
+                <td>Utilizado en la comparación de un modelo</td>
+                </tr>
+                <tr>
+                <td><strong>IN</strong></td>
+                <td>Utilizado para especificar registros de una base de datos.</td>
+                </tr>
+              </tbody>
+            </table>
+
+            </div>
+          <div class="col-md-6">
+            <pre><code class="sql">--Todos los empleados cuyo apellido comience con P
+SELECT * FROM empresaDB.empleado
+WHERE nombre LIKE 'P%'</code></pre>
+            <pre><code class="sql">--Todos los empleados que hayan nacido después de (o durante) 1980
+SELECT * FROM empresaDB.empleado
+WHERE YEAR(fecha_nacimiento) >= 1980</code></pre>
+            <pre><code class="sql">--Todos los empleados que ganen entre 1000 y 4000
+SELECT * FROM empresaDB.empleado
+WHERE sueldo BETWEEN 1000 AND 4000</code></pre>
+
+
+
+          </div>
+        </div>
+        
+        <hr/>
+
+        <div class="row">
+          <div class="col-md-6">
+
+            <h3>Funciones de agregación</h3>
+
+            <table class="table">
+              <tbody>
+                <tr>
+                <td><strong>AVG</strong></td>
+                <td>Utilizada para calcular el promedio de los valores de un campo determinado&nbsp;</td>
+                </tr>
+                <tr>
+                <td><strong>COUNT</strong></td>
+                <td>Utilizada para devolver el número de registros de la selección&nbsp;</td>
+                </tr>
+                <tr>
+                <td><strong>SUM</strong></td>
+                <td>Utilizada para devolver la suma de todos los valores de un campo determinado&nbsp;</td>
+                </tr>
+                <tr>
+                <td><strong>MAX</strong></td>
+                <td>Utilizada para devolver el valor más alto de un campo especificado&nbsp;</td>
+                </tr>
+                <tr>
+                <td><strong>MIN</strong></td>
+                <td>Utilizada para devolver el valor más bajo de un campo especificado&nbsp;</td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div>
+          <div class="col-md-6">
+              <pre><code class="sql">--Salario promedio
+SELECT AVG(sueldo) as promedio FROM empresaDB.empleado;</code></pre>
+              <pre><code class="sql">--Cantidad total de empleados
+SELECT COUNT(1) as cantidad FROM empresaDB.empleado;</code></pre>
+              <pre><code class="sql">--Cantidad total de empleados agrupados por departamento
+SELECT id_departamento, COUNT(1) as cantidad FROM empresaDB.empleado
+GROUP BY id_departamento;</code></pre>
+              <pre><code class="sql">--Cantidad total de empleados agrupados por departamento, para los departamentos que tengan más de 5 empleados
+SELECT id_departamento, COUNT(1) as cantidad FROM empresaDB.empleado
+GROUP BY id_departamento
+HAVING COUNT(1)>5;</code></pre>
+          </div>
+
+        </div>
+
+        <hr/>
+
+        <div class="row">
+          <div class="col-md-12">
+            <h3>Actividad I:</h3>
+            <p>Implementar en una base de datos el siguiente <a class="btn btn-xs btn-success" target="_blank" href="empresaDB.sql">SCRIPT SQL</a></p>
+            <h4>Diagrama de entidad-relación</h4>
+            <img class="img-responsive" src="DER-demo.png" />
+            <ul>
+              <li>4 tabla relacionadas.</li>
+              <li>3 entidades.</li>
+              <li>1 tabla de relación.</li>
+              <li>1000 empleados.</li>
+              <li>6 departamentos.</li>
+              <li>5 proyectos.</li>
+            </ul>
+            <p>Realizar las siguientes operaciones sobre la base de datos de ejemplo:</p>
+            <ol>
+              <li>Crearse a ustedes como empleados, del departamento de Internet.</li>
+              <li>Buscarse a ustedes mismo, por apellido.</li>
+              <li>Pensar entre todos un nuevo proyecto y agregarlo (uno solo debe hacerlo).</li>
+              <li>Asociarse a ese proyecto.</li>
+            </ol>
+          </div>
+        </div>
+
+        <hr/>
+
+        <div class="row">
+          <div class="col-md-3">
+            <h3>Join</h3>
+            <p>Posibilidad de combinar dos tablas en una consulta, unidas por una relación. Dadas dos tablas: empleado y departamento, ver los siguientes ejemplos.</p>
+          </div>
+          <div class="col-md-9">
+            <img class="img-responsive full" src="http://i.stack.imgur.com/66zgg.png" />
+            <small>Representación gráfica de los tipos de join.</small>
+          </div>
+        </div>
+        <hr>
+        <div class="row">
+          <div class="col-md-6">
+            <h4>Join (o inner Join)</h4>
+            <p>Es el más común. Retorna los registros que están en las dos tablas. Es decir, mostrará los empleados que estén relacionados a algún departamento.</p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>empleado.apellido</th>
+                  <th>departamento.nombre</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Pérez</td><td>Sistemas</td></tr>
+                <tr><td>Tagle</td><td>Sistemas</td></tr>
+                <tr><td>Soto</td><td>Administración</td></tr>
+                <tr><td>...</td><td>...</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <pre><code class="sql">--join o inner-join
+SELECT empleado.apellido, departamento.nombre
+FROM empleado
+JOIN departamento on empleado.id_departamento = departamento.id_departamento;</code></pre>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <h4>Left join</h4>
+            <p>Retorna los registros sólo de la tabla de la "izquierda" aunque no tengan relación. Serían todos los empleados incluso si no están en ningún departamento.</p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>empleado.apellido</th>
+                  <th>departamento.nombre</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Pérez</td><td>Sistemas</td></tr>
+                <tr><td>Tagle</td><td>Sistemas</td></tr>
+                <tr><td>Soto</td><td>Administración</td></tr>
+                <tr><td>Stefan</td><td>(NULL)</td></tr>
+                <tr><td>...</td><td>...</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <pre><code class="sql">--left-join
+SELECT empleado.apellido, departamento.nombre
+FROM empleado
+LEFT JOIN departamento on empleado.id_departamento = departamento.id_departamento;</code></pre>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <h4>Left join</h4>
+            <p>Retorna los registros sólo de la tabla de la "derecha" aunque no tengan relación. Se listarían todos los empleados que tengan departamento, además de los departamentos que no tengan empleados.</p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>empleado.apellido</th>
+                  <th>departamento.nombre</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Pérez</td><td>Sistemas</td></tr>
+                <tr><td>Tagle</td><td>Sistemas</td></tr>
+                <tr><td>Soto</td><td>Administración</td></tr>
+                <tr><td>(NULL)</td><td>Logística</td></tr>
+                <tr><td>...</td><td>...</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <pre><code class="sql">--right-join
+SELECT empleado.apellido, departamento.nombre
+FROM empleado
+RIGHT JOIN departamento on empleado.id_departamento = departamento.id_departamento;</code></pre>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <h4>Outer join (o full join)</h4>
+            <p>Retorna el total de registros de las dos tablas, sin importar que tengan o no relación. En MySQL no está implementado, pero si podemos generarlo uniendo los resultados de un left y un right joins.</p>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>empleado.apellido</th>
+                  <th>departamento.nombre</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Pérez</td><td>Sistemas</td></tr>
+                <tr><td>Tagle</td><td>Sistemas</td></tr>
+                <tr><td>Soto</td><td>Administración</td></tr>
+                <tr><td>Stefan</td><td>(NULL)</td></tr>
+                <tr><td>(NULL)</td><td>Logística</td></tr>
+                <tr><td>...</td><td>...</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="col-md-6">
+            <pre><code class="sql">SELECT empleado.apellido, departamento.nombre
+FROM empleado
+LEFT JOIN departamento on empleado.id_departamento = departamento.id_departamento
+
+UNION
+
+SELECT empleado.apellido, departamento.nombre
+FROM empleado
+RIGHT JOIN departamento on empleado.id_departamento = departamento.id_departamento;
+</code></pre>
+          </div>
+        </div>
+        <hr/>
+
+        <div class="row">
+          <div class="col-md-6">
+            <h3>Actividad II:</h3>
+            <p>Misma base de datos que la anterior.</p>
+            <h4>Diagrama de entidad-relación</h4>
+            <img class="img-responsive" src="DER-demo.png" />
+            <p>Realizar las siguientes operaciones sobre la base de datos de ejemplo:</p>
+            <ol class="cuestionario">
+              <li>Nombres de todos los proyectos con su fecha de comienzo.</li>
+              <li>Todos los campos de poyecto, pero sólo de los proyectos que ya terminaron.</li>
+              <li>Salario promedio de los empleados del nuevo proyecto.</li>
+              <li>Código departamento y cantidad de empleados por departamento.</li>
+              <li>Nombre departamento y cantidad de empleados por departamento.</li>
+              <li>Nombre, apellido, dirección y sueldo de empleados que ganen más de dos millones, ordenados por sueldo de forma descendente.</li>
+              <li>Id de proyecto y cantidad de empleados.</li>
+              <li>Id de proyecto y cantidad de empleados pero solo proyectos que tengan más de 20 empleados.</li>
+              <li>Id de proyecto y sueldo sumado de todos sus empleados.</li>
+              <li>Nombre de proyecto y sueldo sumado de todos sus empleados, ordenado por sueldo total descendente.</li>
+            </ol>
+          </div>
+          <div class="col-md-6">
+            <ol id="respuestas">
+              <li><pre><code class="sql">SELECT nombre, fecha_inicio FROM proyecto</code></pre></li>
+              <li><pre><code class="sql">SELECT * FROM proyecto WHERE fecha_fin IS NOT NULL</code></pre></li>
+              <li><pre><code class="sql">SELECT AVG(sueldo) FROM empleado WHERE id_departamento = (ID)</code></pre></li>
+              <li><pre><code class="sql">SELECT id_departamento,COUNT(1) as cantidad FROM empleado GROUP BY id_departamento</code></pre></li>
+              <li><pre><code class="sql">SELECT departamento.nombre,COUNT(1) as cantidad FROM empleado
+JOIN departamento ON empleado.id_departamento = departamento.id_departamento
+GROUP BY empleado.id_departamento</code></pre></li>
+              <li><pre><code class="sql">SELECT empleado.nombre, empleado.apellido, empleado.direccion, empleado.sueldo
+FROM empleado
+WHERE empleado.sueldo > 2000000
+ORDER BY empleado.sueldo DESC</code></pre></li>
+              <li><pre><code class="sql">SELECT id_proyecto,count(1) as cantidad
+FROM empleado_proyecto
+GROUP BY id_proyecto</code></pre></li>
+              <li><pre><code class="sql">SELECT id_proyecto,count(1) as cantidad
+FROM empleado_proyecto
+GROUP BY id_proyecto
+HAVING count(1)>20</code></pre></li>
+              <li><pre><code class="sql">SELECT id_proyecto, SUM(empleado.sueldo) as total
+FROM empleado_proyecto
+JOIN empleado ON empleado.id_empleado = empleado_proyecto.id_empleado
+GROUP BY id_proyecto</code></pre></li>
+              <li><pre><code class="sql">SELECT proyecto.nombre, SUM(empleado.sueldo) as total
+FROM empleado_proyecto
+JOIN empleado ON empleado.id_empleado = empleado_proyecto.id_empleado
+JOIN proyecto ON proyecto.id_proyecto = empleado_proyecto.id_proyecto
+GROUP BY empleado_proyecto.id_proyecto</code></pre></li>
+            </ol>
+          </div>
+        </div>
+
+
+    </div>
+
+    <hr/>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">Pablo H. Paladino - <a href="http://twitter.com/palamago">@palamago</a><a class="pull-right" href="javascript:;" onclick="$('#respuestas').show();">#</a></p>
+      </div>
+    </footer>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.4.0/highlight.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        hljs.initHighlightingOnLoad();
+      });
+      </script>
+  </body>
+</html>
