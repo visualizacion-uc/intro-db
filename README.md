@@ -1,13 +1,15 @@
 # Introducción a Base de Datos
 
-Ver online: [aquí](http://palamago.github.io/intro-db/)
+Ver online: [aquí](https://visualizacion-uc.github.io/introduccion-base-de-datos)
 
-##Contenido
+## Contenido
 
-###Bloque I
+### Bloque I
 
-* 
+* Conceptos generales
+* Ejercicio Excel
 
-###Bloque II
+### Bloque II
 
-* 
+* SQL + Ejercicio
+* Ejercicio CartoDB
