@@ -1,6 +1,6 @@
 # Introducción a Base de Datos
 
-Ver online: [aquí](https://visualizacion-uc.github.io/introduccion-base-de-datos)
+Ver online: [aquí](https://visualizacionuc.github.io/introduccion-base-de-datos)
 
 ## Contenido
 
